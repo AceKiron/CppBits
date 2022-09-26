@@ -69,6 +69,14 @@ namespace CppBits {
         WriteBit(value);
     }
 
+    void Writer::WriteString(const std::string& value) {
+        for (int ci = 0; ci < value.size(); ci++) {
+            WriteBit(true);
+            WriteChar(value.at(ci));
+        }
+        WriteBit(false);
+    }
+
     void Writer::Finalize() {
         m_Current *= pow(2, 8 - m_BitsOffset);
         m_Stream << m_Current;
@@ -88,15 +96,6 @@ namespace CppBits {
             m_BitsOffset = 0;
             m_Current = 0;
         }
-
-    }
-
-    void Writer::WriteString(const std::string& value) {
-        for (int ci = 0; ci < value.size(); ci++) {
-            WriteBit(true);
-            WriteChar(value.at(ci));
-        }
-        WriteBit(false);
     }
 
 }
@@ -117,7 +116,7 @@ int main() {
 
     writer->WriteChar('/');
 
-    writer->Finalize();
+    delete writer;
 
 
 
@@ -135,4 +134,6 @@ int main() {
     std::cout << reader->ReadString() << std::endl;
 
     std::cout << (char) reader->ReadChar() << std::endl;
+
+    delete reader;
 }

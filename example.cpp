@@ -18,7 +18,7 @@ int main() {
 
     writer->WriteChar('/');
 
-    writer->Finalize();
+    delete writer;
 
 
 
@@ -36,4 +36,6 @@ int main() {
     std::cout << reader->ReadString() << std::endl;
 
     std::cout << (char) reader->ReadChar() << std::endl;
+
+    delete reader;
 }
