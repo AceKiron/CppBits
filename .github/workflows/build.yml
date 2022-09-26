@@ -1,0 +1,26 @@
+name: CI
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+
+    workflow_dispatch:
+
+jobs:
+    build:
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest]
+
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Build header-only
+              run: g++ -o test example.cpp -I.
+
+            - name: Build with source file
+              run: g++ -o test2 cppbits_source.cpp -I.
