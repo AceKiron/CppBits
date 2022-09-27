@@ -13,14 +13,15 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest, windows-latest]
+                file: [example.cpp, cppbits_source.cpp]
 
         runs-on: ${{ matrix.os }}
 
         steps:
             - uses: actions/checkout@v3
 
-            - name: Build header-only
-              run: g++ -o test example.cpp -I.
+            - name: Build example
+              run: g++ -o test ${{ matrix.file }} -I.
 
-            - name: Build with source file
-              run: g++ -o test2 cppbits_source.cpp -I.
+            - name: Run example
+              run: ./test
