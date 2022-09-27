@@ -1,5 +1,7 @@
 #include <iostream>
 
+// The define CPPBITS_SOURCE tells the compiler we want to provide the source
+// of CppBits ourselves.
 #define CPPBITS_SOURCE
 
 #include "cppbits.hpp"
